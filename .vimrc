@@ -101,13 +101,13 @@ nnoremap <silent> <leader>fq :FuzzyQuickfix<CR>
 nnoremap <silent> <leader>fr :FuzzyMruCwd<CR>
 
 # LSP KEYMAP
-nnoremap <buffer> <silent> gd <cmd>LspGotoDefinition<cr>
-nnoremap <buffer> <silent> K  <cmd>LspHover<cr>
-nnoremap <buffer> <silent> [d <cmd>LspDiag prev<cr>
-nnoremap <buffer> <silent> ]d <cmd>LspDiag next<cr>
-nnoremap <buffer> <silent> <leader>rn <cmd>LspRename<cr>
-nnoremap <buffer> <silent> <leader>ca <cmd>LspCodeAction<cr>
-nnoremap <buffer> <silent> <leader>f <cmd>LspFormat<cr>
+nnoremap <silent> gd <cmd>LspGotoDefinition<cr>
+nnoremap <silent> K  <cmd>LspHover<cr>
+nnoremap <silent> [d <cmd>LspDiag prev<cr>
+nnoremap <silent> ]d <cmd>LspDiag next<cr>
+nnoremap <silent> <leader>rn <cmd>LspRename<cr>
+nnoremap <silent> <leader>ca <cmd>LspCodeAction<cr>
+nnoremap <silent> <leader>f <cmd>LspFormat<cr>
 
 # SNIPPETS KEYMAP
 g:user_emmet_leader_key = '<c-e>'
@@ -228,7 +228,7 @@ def g:RunRuff()
         echohl None
     endif
 enddef
-nnoremap <buffer> <silent> gr :call g:RunRuff()<CR> 
+nnoremap <silent> gr :call g:RunRuff()<CR> 
 
 # BIOME FORMAT 
 def g:RunBiome()
@@ -249,4 +249,4 @@ def g:RunBiome()
         echohl None
     endif
 enddef
-nnoremap <buffer> <silent> gb :call g:RunBiome()<CR>
+nnoremap <silent> gb :call g:RunBiome()<CR>
