@@ -177,7 +177,6 @@ var lspServers = [
         filetype: ['html'],
         path: 'vscode-html-language-server',
         args: ['--stdio'],
-        initializationOptions: { provideFormatter: v:true }
     },
     {
         name: 'vscode-css-server',
