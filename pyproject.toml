@@ -1,0 +1,28 @@
+[project]
+name = "my-python-project"
+version = "0.1.0"
+dependencies = []
+
+[tool.ruff]
+# Target the Python version you are using
+target-version = "py310"
+# Set the line length (88 is the standard for Black/Ruff)
+line-length = 88
+
+[tool.ruff.lint]
+# "E" and "F" are standard PEP8/Flake8 checks
+# "I" enables import sorting (isort)
+# "UP" enables Python upgrade suggestions
+select = ["E", "F", "I", "UP"]
+ignore = []
+
+# Allow fix-all behavior for these rules
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.format]
+preview = true
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
