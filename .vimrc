@@ -152,7 +152,7 @@ var lspServers = [
         args: ['--background-index']
     },
     {
-        name: 'rust-analuzer',
+        name: 'rust-analyzer',
         filetype: ['rust'],
         path: 'rust-analyzer',
         args: [],
