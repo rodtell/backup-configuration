@@ -1,0 +1,216 @@
+## LSP
+# SCLS
+[language-server.scls]
+command = "simple-completion-language-server"
+
+[language-server.scls.config]
+feature_words = false
+feature_snippets = true
+snippets_first = true
+
+# C & C++
+[language-server.clangd]
+command = "clangd"
+
+# RUST
+[language-server.rust-analyzer]
+command = "rust-analyzer"
+
+# PYTHON
+[language-server.basedpyright]
+command = "basedpyright-langserver"
+args = ["--stdio"]
+config = {}
+
+# RUFF
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
+
+# JAVASCRIPT, TYPESCRIPT
+[language-server.vtsls]
+command = "vtsls"
+args = ["--stdio"]
+config = { vtsls.autoUseWorkspaceTsdk = true }
+
+# OXLINT
+[language-server.oxlint-language-server]
+command = "oxlint"
+args = ["--lsp"]
+
+# OXFMT
+[language-server.oxfmt-language-server]
+command = "oxfmt"
+args = ["--lsp"]
+
+# EMMET
+[language-server.emmet-lsp]
+command = "emmet-language-server"
+args = ["--stdio"]
+
+# HTML
+[language-server.vscode-html-language-server]
+command = "vscode-html-language-server"
+args = ["--stdio"]
+config = { provideFormatter = false }
+
+# CSS
+[language-server.vscode-css-language-server]
+command = "vscode-css-language-server"
+args = ["--stdio"]
+config = { provideFormatter = false, css = { validate = { enable = true } } }
+
+# JSON
+[language-server.vscode-json-language-server]
+command = "vscode-json-language-server"
+args = ["--stdio"]
+config = { provideFormatter = false, json = { validate = { enable = true } } }
+
+# YAML
+[language-server.yaml-language-server]
+command = "yaml-language-server"
+args = ["--stdio"]
+
+# TOML
+[language-server.taplo]
+command = "taplo"
+args = ["lsp", "stdio"]
+config = {}
+
+## LANGUAGE
+# C 
+[[language]]
+name = "c"
+file-types = ["c", "h"]
+language-servers = ["clangd", "scls"]
+formatter = { command = "clang-format" }
+auto-format = true
+
+# C++
+[[language]]
+name = "cpp"
+file-types = ["cpp", "cc", "cxx", "hpp", "hcc", "hxx"]
+language-servers = ["clangd", "scls"]
+formatter = { command = "clang-format" }
+auto-format = true
+
+# RUST
+[[language]]
+name = "rust"
+file-types = ["rs"]
+roots = ["Cargo.toml", "Cargo.lock"]
+language-servers = ["rust-analyzer", "scls"]
+formatter = { command = "rustfmt", args = ["--edition", "2021"] }
+auto-format = true
+
+# PYTHON
+[[language]]
+name = "python"
+file-types = ["py"]
+roots = ["pyproject.toml"]
+language-servers = ["basedpyright", "ruff", "scls"]
+formatter = { command = "ruff", args = ["format", "--line-length", "88", "-"] }
+auto-format = true
+
+# JAVASCRIPT
+[[language]]
+name = "javascript"
+file-types = ["js"]
+roots = ["package.json", "jsconfig.json", ".oxfmtrc.json"]
+language-servers = ["vtsls", "oxlint", "scls"]
+formatter = { command = "oxfmt", args = ["exec", "--stdin-filepath=buffer.js"] }
+auto-format = true
+
+# JSX
+[[language]]
+name = "jsx"
+file-types = ["jsx"]
+roots = ["package.json", "jsconfig.json", ".oxfmtrc.json"]
+language-servers = ["vtsls", "oxlint", "scls"]
+formatter = { command = "oxfmt", args = [
+  "exec",
+  "--stdin-filepath=buffer.jsx",
+] }
+auto-format = true
+
+# TYPESCRIPT
+[[language]]
+name = "typescript"
+file-types = ["ts"]
+roots = ["package.json", "tsconfig.json", ".oxfmtrc.json"]
+language-servers = ["vtsls", "oxlint", "scls"]
+formatter = { command = "oxfmt", args = ["exec", "--stdin-filepath=buffer.ts"] }
+auto-format = true
+
+# TSX
+[[language]]
+name = "tsx"
+file-types = ["tsx"]
+roots = ["package.json", "tsconfig.json", ".oxfmtrc.json"]
+language-servers = ["vtsls", "oxlint", "scls"]
+formatter = { command = "oxfmt", args = [
+  "exec",
+  "--stdin-filepath=buffer.tsx",
+] }
+auto-format = true
+
+# HTML
+[[language]]
+name = "html"
+file-types = ["html"]
+language-servers = ["vscode-html-language-server", "emmet-lsp"]
+formatter = { command = "oxfmt", args = [
+  "exec",
+  "--stdin-filepath=buffer.html",
+] }
+auto-format = true
+
+# CSS
+[[language]]
+name = "css"
+file-types = ["css"]
+language-servers = ["vscode-css-language-server", "emmet-lsp"]
+formatter = { command = "oxfmt", args = [
+  "exec",
+  "--stdin-filepath=buffer.css",
+] }
+auto-format = true
+
+# SCSS
+[[language]]
+name = "scss"
+file-types = ["scss"]
+language-servers = ["vscode-css-language-server", "emmet-lsp"]
+formatter = { command = "oxfmt", args = [
+  "exec",
+  "--stdin-filepath=buffer.scss",
+] }
+auto-format = true
+
+# YAML
+[[language]]
+name = "yaml"
+file-types = ["yml", "yaml"]
+language-servers = ["yaml-language-server"]
+formatter = { command = "yamlfmt", args = ['-'] }
+auto-format = true
+
+# JSON
+[[language]]
+name = "json"
+file-types = ["json"]
+language-servers = ["vscode-json-language-server"]
+formatter = { command = "oxfmt", args = [
+  "exec",
+  "--stdin-filepath=buffer.json",
+] }
+auto-format = true
+
+# TOML
+[[language]]
+name = "toml"
+file-types = ["toml"]
+roots = ["."]
+language-servers = ["taplo"]
+formatter = { command = "taplo", args = ["format", "-"] }
+auto-format = true
