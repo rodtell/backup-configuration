@@ -1,13 +1,4 @@
 ## LSP
-# SCLS
-[language-server.scls]
-command = "simple-completion-language-server"
-
-[language-server.scls.config]
-feature_words = false
-feature_snippets = true
-snippets_first = true
-
 # C & C++
 [language-server.clangd]
 command = "clangd"
@@ -90,7 +81,7 @@ auto-format = true
 [[language]]
 name = "cpp"
 file-types = ["cpp", "cc", "cxx", "hpp", "hcc", "hxx"]
-language-servers = ["clangd", "scls"]
+language-servers = ["clangd"]
 formatter = { command = "clang-format" }
 auto-format = true
 
@@ -99,7 +90,7 @@ auto-format = true
 name = "rust"
 file-types = ["rs"]
 roots = ["Cargo.toml", "Cargo.lock"]
-language-servers = ["rust-analyzer", "scls"]
+language-servers = ["rust-analyzer"]
 formatter = { command = "rustfmt", args = ["--edition", "2021"] }
 auto-format = true
 
@@ -108,7 +99,7 @@ auto-format = true
 name = "python"
 file-types = ["py"]
 roots = ["pyproject.toml"]
-language-servers = ["basedpyright", "ruff", "scls"]
+language-servers = ["basedpyright", "ruff"]
 formatter = { command = "ruff", args = ["format", "--line-length", "88", "-"] }
 auto-format = true
 
@@ -117,7 +108,7 @@ auto-format = true
 name = "javascript"
 file-types = ["js"]
 roots = ["package.json", "jsconfig.json", ".oxfmtrc.json"]
-language-servers = ["vtsls", "oxlint", "scls"]
+language-servers = ["vtsls", "oxlint-language-server"]
 formatter = { command = "oxfmt", args = ["exec", "--stdin-filepath=buffer.js"] }
 auto-format = true
 
@@ -126,7 +117,7 @@ auto-format = true
 name = "jsx"
 file-types = ["jsx"]
 roots = ["package.json", "jsconfig.json", ".oxfmtrc.json"]
-language-servers = ["vtsls", "oxlint", "scls"]
+language-servers = ["vtsls", "oxlint-language-server"]
 formatter = { command = "oxfmt", args = [
   "exec",
   "--stdin-filepath=buffer.jsx",
@@ -138,7 +129,7 @@ auto-format = true
 name = "typescript"
 file-types = ["ts"]
 roots = ["package.json", "tsconfig.json", ".oxfmtrc.json"]
-language-servers = ["vtsls", "oxlint", "scls"]
+language-servers = ["vtsls", "oxlint-language-server"]
 formatter = { command = "oxfmt", args = ["exec", "--stdin-filepath=buffer.ts"] }
 auto-format = true
 
@@ -147,7 +138,7 @@ auto-format = true
 name = "tsx"
 file-types = ["tsx"]
 roots = ["package.json", "tsconfig.json", ".oxfmtrc.json"]
-language-servers = ["vtsls", "oxlint", "scls"]
+language-servers = ["vtsls", "oxlint-language-server"]
 formatter = { command = "oxfmt", args = [
   "exec",
   "--stdin-filepath=buffer.tsx",
