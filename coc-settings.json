@@ -1,0 +1,23 @@
+{
+  "diagnostic.enable": true,
+  "semanticTokens.enable": true,
+  "diagnostic.virtualText": true,
+  "diagnostic.virtualTextAlign": "below",
+  "diagnostic.virtualTextCurrentLineOnly": false,
+  "diagnostic.hintSign": "◆",
+  "diagnostic.infoSign": "●",
+  "diagnostic.errorSign": "■",
+  "diagnostic.warningSign": "▲",
+  "diagnostic.messageTarget": "echo",
+  "coc.preferences.formatOnSave": true,
+  "tsserver.enable": true,
+  "oxc.oxlint.binPath": "/home/rodrigo/.npm-global/bin/oxlint",
+  "oxc.oxlint.enable": true,
+  "oxc.oxfmt.binPath": "/home/rodrigo/.npm-global/bin/oxfmt",
+  "oxc.oxfmt.enable": true,
+  "basedpyright.enable": true,
+  "ruff.path": ["/home/rodrigo/.venv/bin/ruff"],
+  "ruff.enable": true,
+  "clangd.path": "/usr/bin/clangd",
+  "clangd.enabled": true
+}
