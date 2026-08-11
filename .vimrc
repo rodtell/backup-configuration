@@ -23,11 +23,13 @@ set backupdir=$HOME/.vim/backup//
 set undofile
 set undodir=$HOME/.vim/undo//
 set noshowmode
-set updatetime=500
+set laststatus=2
+set statusline=%{&modified?'+':&modifiable?'':'-'}\ %f\ [%{(&ft!=''?&ft[0]->toupper().&ft[1:]:'none')}]\ %{mode()=='n'?'NORMAL':mode()=='i'?'INSERT':mode()=='v'?'VISUAL':mode()=='V'?'V-LINE':mode()=='␖'?'V-BLOCK':mode()=='R'?'REPLACE':mode()=='c'?'COMMAND':mode()}%=\ %l:%c\ (%p%%)
 set termguicolors
+set updatetime=500
 set signcolumn=yes
-set foldmethod=indent
 set cursorline
+set foldmethod=indent
 
 # AUTO-SAVE
 augroup AutoSaveGroup
@@ -50,12 +52,13 @@ packadd! comment
 call plug#begin()
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-fuzzbox/fuzzbox.vim'
-Plug 'honza/vim-snippets'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'yegappan/lsp'
+Plug 'rafamadriz/friendly-snippets'
 Plug 'morhetz/gruvbox'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'mattn/emmet-vim'
 call plug#end()
 
 # THEME
@@ -64,26 +67,24 @@ g:gruvbox_contrast_dark = 'soft'
 g:gruvbox_bold = 1
 g:gruvbox_italic = 1
 colorscheme gruvbox
-g:airline_powerline_fonts = 1
-g:airline_theme = 'gruvbox'
 highlight SignColumn ctermbg=NONE guibg=NONE
 highlight CursorLine ctermbg=NONE guibg=NONE ctermfg=NONE guifg=NONE
 
-# THEME CoC
-highlight CocErrorVirtualText ctermbg=Red ctermfg=White guibg=Red guifg=White
-highlight CocWarningVirtualText ctermbg=Yellow ctermfg=Black guibg=Yellow guifg=Black
-highlight CocInfoVirtualText ctermbg=DarkMagenta ctermfg=White guibg=DarkMagenta guifg=White
-highlight CocHintVirtualText ctermbg=Cyan ctermfg=Black guibg=Cyan guifg=Black
+# THEME LSP
+highlight LspDiagInlineError ctermbg=RED ctermfg=WHITE guibg=RED guifg=WHITE
+highlight LspDiagInlineHint ctermbg=CYAN ctermfg=BLACK guibg=CYAN guifg=BLACK
+highlight LspDiagInlineInfo ctermbg=DARKMAGENTA ctermfg=WHITE guibg=DARKMAGENTA guifg=WHITE
+highlight LspDiagInlineWarning ctermbg=YELLOW ctermfg=BLACK guibg=YELLOW guifg=BLACK
 
-highlight CocErrorSign ctermbg=NONE ctermfg=Red guifg=Red guibg=NONE
-highlight CocWarningSign ctermbg=NONE ctermfg=Yellow guifg=Yellow guibg=NONE
-highlight CocInfoSign ctermbg=NONE ctermfg=DarkMagenta guifg=DarkMagenta guibg=NONE
-highlight CocHintSign ctermbg=NONE ctermfg=Cyan guifg=Cyan guibg=NONE
+highlight LspDiagSignErrorText ctermbg=NONE ctermfg=RED guibg=NONE guifg=RED
+highlight LspDiagSignHintText ctermbg=NONE ctermfg=CYAN guibg=NONE guifg=CYAN
+highlight LspDiagSignInfoText ctermbg=NONE ctermfg=DARKMAGENTA guibg=NONE guifg=DARKMAGENTA
+highlight LspDiagSignWarningText ctermbg=NONE ctermfg=YELLOW guibg=NONE guifg=YELLOW
 
-highlight CocErrorHighlight ctermbg=Red ctermfg=White guibg=Red guifg=White
-highlight CocWarningHighlight ctermbg=Yellow ctermfg=Black guibg=Yellow guifg=Black
-highlight CocInfoHighlight ctermbg=DarkMagenta ctermfg=White guibg=DarkMagenta guifg=White
-highlight CocHintHighlight ctermbg=Cyan ctermfg=Black guibg=Cyan guifg=Black
+highlight LspDiagVirtualTextError ctermbg=RED ctermfg=WHITE guibg=RED guifg=WHITE
+highlight LspDiagVirtualTextHint ctermbg=CYAN ctermfg=BLACK guibg=CYAN guifg=BLACK
+highlight LspDiagVirtualTextInfo ctermbg=DARKMAGENTA ctermfg=WHITE guibg=DARKMAGENTA guifg=WHITE
+highlight LspDiagVirtualTextWarning ctermbg=YELLOW ctermfg=BLACK guibg=YELLOW guifg=BLACK
 
 # FUZZBOX KEYMAP
 nnoremap <silent> <leader>fb :FuzzyBuffers<CR>
@@ -95,16 +96,142 @@ nnoremap <silent> <leader>fr :FuzzyMru<CR>
 nnoremap <silent> <leader>fp :FuzzyPrevious<CR>
 nnoremap <silent> <leader>fq :FuzzyQuickfix<CR>
 
-# CoC KEYMAP
-nmap <silent><nowait> [g <Plug>(coc-diagnostic-prev)
-nmap <silent><nowait> ]g <Plug>(coc-diagnostic-next)
-nmap <silent><nowait> gd <Plug>(coc-definition)
-nmap <silent><nowait> gy <Plug>(coc-type-definition)
-nmap <silent><nowait> gi <Plug>(coc-implementation)
-nmap <silent><nowait> gr <Plug>(coc-references)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>ac  <Plug>(coc-codeaction-cursor)
-nmap <leader>as  <Plug>(coc-codeaction-source)
-nmap <leader>qf  <Plug>(coc-fix-current)
-nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
-nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+# SNIPPETS KEYMAP
+imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+g:user_emmet_leader_key = '<c-e>'
+
+# LSP KEYMAP
+nnoremap <silent> gd <cmd>LspGotoDefinition<cr>
+nnoremap <silent> K  <cmd>LspHover<cr>
+nnoremap <silent> [d <cmd>LspDiag prev<cr>
+nnoremap <silent> ]d <cmd>LspDiag next<cr>
+nnoremap <silent> <leader>rn <cmd>LspRename<cr>
+nnoremap <silent> <leader>ca <cmd>LspCodeAction<cr>
+nnoremap <silent> <leader>lf <cmd>LspFormat<cr>
+
+# LSP CONFIGURATION
+var lspOpts = {
+    autoComplete: v:true,
+    autoHighlightDiags: v:true,
+    diagSignErrorText: '■',
+    diagSignHintText: '◆',
+    diagSignInfoText: '●',
+    diagSignWarningText: '▲',
+    highlightDiagInline: v:true,
+    ignoreMissingServer: v:false,
+    completionTextEdit: v:true,
+    diagVirtualTextAlign: 'above',
+    maxDiagnostics: 200,
+    semanticHighlight: v:true,
+    showDiagWithSign: v:true,
+    showDiagWithVirtualText: v:true,
+    showSignature: v:true,
+    snippetSupport: v:true,
+    vsnipSupport: v:true,
+    bufferCompletionTimeout: 500,
+}
+autocmd User LspSetup call LspOptionsSet(lspOpts)
+
+# LSP SERVERS
+var lspServers = [
+    {
+        name: 'clangd',
+        filetype: ['c', 'cpp'],
+        path: 'clangd',
+        args: ['--background-index']
+    },
+    {
+        name: 'rust-analyzer',
+        filetype: ['rust'],
+        path: 'rust-analyzer',
+        args: [],
+        syncInit: v:true
+    },
+    {
+        name: 'basedpyright',
+        filetype: ['python'],
+        path: 'basedpyright-langserver',
+        args: ['--stdio'],
+        rootSearch: ['pyproject.toml']
+    },
+    {
+        name: 'ruff',
+        filetype: ['python'],
+        path: 'ruff',
+        args: ['server'],
+        rootSearch: ['pyproject.toml'],
+        initializationOptions: {
+            settings: {
+                lint: { enable: v:true }
+            }
+        }
+    },
+    {
+        name: 'vtsls',
+        filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact'],
+        path: 'vtsls',
+        args: ['--stdio'],
+        initializationOptions: {
+            typescript: {
+                format: { enable: v:false },
+                diagnostics: { enable: v:true }
+            },
+            javascript: {
+                format: { enable: v:false },
+                diagnostics: { enable: v:true }
+            }
+        }
+    },
+    {
+        name: 'oxlint',
+        filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact'],
+        path: 'oxlint',
+        args: ['--lsp'],
+        rootSearch: ['.oxlintrc.json']
+    },
+    {
+        name: 'oxfmt',
+        filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'json', 'jsonc', 'html', 'css', 'scss'],
+        path: 'oxfmt',
+        args: ['--lsp'],
+        rootSearch: ['.oxlintrc.json']
+    },
+    {
+        name: 'vscode-html-server',
+        filetype: ['html'],
+        path: 'vscode-html-language-server',
+        args: ['--stdio']
+    },
+    {
+        name: 'vscode-css-server',
+        filetype: ['css', 'scss'],
+        path: 'vscode-css-language-server',
+        args: ['--stdio']
+    },
+    {
+        name: 'vscode-json-server',
+        filetype: ['json', 'jsonc'],
+        path: 'vscode-json-language-server',
+        args: ['--stdio']
+    },
+    {
+        name: 'yaml-server',
+        filetype: ['yaml', 'yml'],
+        path: 'yaml-language-server',
+        args: ['--stdio']
+    },
+    {
+        name: 'taplo',
+        filetype: ['toml'],
+        path: 'taplo',
+        args: ['lsp', 'stdio']
+    }
+]
+autocmd User LspSetup call LspAddServer(lspServers)
