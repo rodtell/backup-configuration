@@ -252,4 +252,4 @@ def FormatOxfmt()
   echomsg "oxfmt: File formatted."
 enddef
 
-nnoremap <silent> <leader>fx <scriptcmd>FormatOxfmt()<CR>
+nnoremap <silent> <leader>xf <scriptcmd>FormatOxfmt()<CR>
