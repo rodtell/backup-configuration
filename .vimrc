@@ -114,7 +114,7 @@ nnoremap <silent> [d <cmd>LspDiag prev<cr>
 nnoremap <silent> ]d <cmd>LspDiag next<cr>
 nnoremap <silent> <leader>rn <cmd>LspRename<cr>
 nnoremap <silent> <leader>ca <cmd>LspCodeAction<cr>
-nnoremap <silent> <leader>lf <cmd>LspFormat<cr>
+nnoremap <silent> <leader>fe <cmd>LspFormat<cr>
 
 # LSP CONFIGURATION
 var lspOpts = {
@@ -249,7 +249,7 @@ def FormatOxfmt()
   winrestview(save_view)
   setpos('.', save_cursor)
 
-  echomsg "oxfmt: File formatted."
+  echomsg "oxfmt success: File formatted."
 enddef
 
-nnoremap <silent> <leader>xf <scriptcmd>FormatOxfmt()<CR>
+nnoremap <silent> <leader>fo <scriptcmd>FormatOxfmt()<CR>
