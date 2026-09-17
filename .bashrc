@@ -32,3 +32,4 @@ export PATH="$HOME/.venv/bin:$PATH"
 export NPM_CONFIG_PREFIX="$HOME/.npm-global"
 export PATH="$HOME/.npm-global/bin:$PATH"
 
+alias vim-update='for dir in ~/.vim/pack/vendor/start/*; do [ -d "$dir/.git" ] && echo "Updating ${dir##*/}" && git -C "$dir" pull; done'

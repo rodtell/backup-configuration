@@ -48,19 +48,6 @@ inoremap { {}<Left>
 # PACKADD
 packadd! comment
 
-# PLUGINS MANAGED BY VIM-PLUG
-call plug#begin()
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-fugitive'
-Plug 'vim-fuzzbox/fuzzbox.vim'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'yegappan/lsp'
-Plug 'rafamadriz/friendly-snippets'
-Plug 'morhetz/gruvbox'
-Plug 'mattn/emmet-vim'
-call plug#end()
-
 # THEME
 set background=dark
 g:gruvbox_contrast_dark = 'soft'
