@@ -34,7 +34,7 @@ set foldmethod=indent
 # AUTO-SAVE
 augroup AutoSaveGroup
     autocmd!
-    autocmd BufLeave,FocusLost,InsertLeave * if &modified && !empty(expand('%')) && &buftype == '' | write | endif
+    autocmd BufLeave,FocusLost,InsertLeave * if &modified && !empty(expand('%')) && &buftype == '' | silent update | endif
 augroup END
 
 # AUTO-CLOSE BRACKETS, QUOTES, PARENTESIS
