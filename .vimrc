@@ -166,6 +166,7 @@ var lspServers = [
         path: 'vtsls',
         args: ['--stdio'],
         initializationOptions: {
+            hostInfo: 'vim',
             typescript: {
                 format: { enable: v:false },
                 diagnostics: { enable: v:true }
@@ -191,7 +192,7 @@ var lspServers = [
     },
     {
         name: 'vscode-css-server',
-        filetype: ['css', 'scss'],
+        filetype: ['css', 'scss', 'less', 'sass'],
         path: 'vscode-css-language-server',
         args: ['--stdio']
     },
