@@ -105,26 +105,25 @@ nnoremap <silent> <leader>fe :LspFormat<cr>
 
 # LSP CONFIGURATION
 var lspOpts = {
-    autoComplete: v:true,
-    autoHighlightDiags: v:true,
+    autoComplete: true,
+    autoHighlightDiags: true,
     diagSignErrorText: '■',
     diagSignHintText: '◆',
     diagSignInfoText: '●',
     diagSignWarningText: '▲',
-    highlightDiagInline: v:true,
-    ignoreMissingServer: v:false,
-    completionTextEdit: v:true,
+    highlightDiagInline: true,
+    ignoreMissingServer: false,
+    completionTextEdit: true,
     diagVirtualTextAlign: 'above',
     maxDiagnostics: 200,
-    semanticHighlight: v:true,
-    showDiagWithSign: v:true,
-    showDiagWithVirtualText: v:true,
-    showSignature: v:true,
-    snippetSupport: v:true,
-    vsnipSupport: v:true,
+    semanticHighlight: true,
+    showDiagWithSign: true,
+    showDiagWithVirtualText: true,
+    showSignature: true,
+    snippetSupport: true,
+    vsnipSupport: true,
     bufferCompletionTimeout: 500,
 }
-autocmd User LspSetup call LspOptionsSet(lspOpts)
 
 # LSP SERVERS
 var lspServers = [
@@ -139,7 +138,7 @@ var lspServers = [
         filetype: ['rust'],
         path: 'rust-analyzer',
         args: [],
-        syncInit: v:true
+        syncInit: true
     },
     {
         name: 'basedpyright',
@@ -156,7 +155,7 @@ var lspServers = [
         rootSearch: ['pyproject.toml'],
         initializationOptions: {
             settings: {
-                lint: { enable: v:true }
+                lint: { enable: true }
             }
         }
     },
@@ -168,12 +167,12 @@ var lspServers = [
         initializationOptions: {
             hostInfo: 'vim',
             typescript: {
-                format: { enable: v:false },
-                diagnostics: { enable: v:true }
+                format: { enable: false },
+                diagnostics: { enable: true }
             },
             javascript: {
-                format: { enable: v:false },
-                diagnostics: { enable: v:true }
+                format: { enable: false },
+                diagnostics: { enable: true }
             }
         }
     },
@@ -215,7 +214,13 @@ var lspServers = [
         args: ['lsp', 'stdio']
     }
 ]
-autocmd User LspSetup call LspAddServer(lspServers)
+augroup LspSetupGroup
+    autocmd!
+    autocmd User LspSetup {
+        call LspOptionsSet(lspOpts)
+        call LspAddServer(lspServers)
+    }
+augroup END
 
 # OXFMT
 def FormatOxfmt()
