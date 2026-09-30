@@ -37,6 +37,13 @@ return {
       init_options = { hostInfo = "neovim" },
     })
     vim.lsp.enable("vtsls")
+    -- OXLINT (JAVASCRIPT, TYPESCRIPT, JSX, TSX)
+    vim.lsp.config("oxlint", {
+      cmd = { "oxlint", "--lsp" },
+      filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
+    })
+    vim.lsp.enable("oxlint")
+
     -- HTML
     vim.lsp.config("html", {
       cmd = { "vscode-html-language-server", "--stdio" },
