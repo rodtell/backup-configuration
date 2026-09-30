@@ -43,7 +43,6 @@ return {
       filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
     })
     vim.lsp.enable("oxlint")
-
     -- HTML
     vim.lsp.config("html", {
       cmd = { "vscode-html-language-server", "--stdio" },
